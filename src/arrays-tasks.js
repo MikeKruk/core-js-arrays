@@ -57,7 +57,7 @@ function sumArrays(arr1, arr2) {
  *    findElement([0, 1, 2, 3, 4, 5], 5) => 5
  */
 function findElement(arr, value) {
-  return arr.findIndex((el) => el === value);
+  return arr.indexOf(value);
 }
 
 /**
@@ -413,8 +413,12 @@ function getFalsyValuesCount(arr) {
  *                              [0,0,0,1,0],
  *                              [0,0,0,0,1]]
  */
-function getIdentityMatrix(/* n */) {
-  throw new Error('Not implemented');
+function getIdentityMatrix(n) {
+  return Array.from({ length: n }, (a, indexRow) => {
+    return Array.from({ length: n }, (b, indexColumn) =>
+      indexRow === indexColumn ? 1 : 0
+    );
+  });
 }
 
 /**
@@ -584,8 +588,22 @@ function sortDigitNamesByNumericOrder(arr) {
  *   swapHeadAndTail([]) => []
  *
  */
-function swapHeadAndTail(/* arr */) {
-  throw new Error('Not implemented');
+function swapHeadAndTail(arr) {
+  const { length } = arr;
+
+  if (length <= 1) {
+    return arr;
+  }
+
+  const middleIndex = Math.floor(length / 2);
+  const head = arr.slice(0, middleIndex);
+  const tail = arr.slice(-middleIndex);
+
+  if (arr.length % 2 !== 0) {
+    return [...tail, ...arr.slice(middleIndex, middleIndex + 1), ...head];
+  }
+
+  return [...tail, ...head];
 }
 
 module.exports = {
